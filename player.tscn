@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ybitoy85gtrk"]
+[gd_scene load_steps=20 format=3 uid="uid://ybitoy85gtrk"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_jmmed"]
 [ext_resource type="Texture2D" uid="uid://bt8rxbfuam0wg" path="res://Assets/playerIdle.png" id="2_pa5pe"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://sbslesdd5wmq" path="res://Assets/playerAttack.png" id="4_ma74k"]
 [ext_resource type="Texture2D" uid="uid://bx7du58h0nune" path="res://Assets/playerHurt.png" id="5_wsgif"]
 [ext_resource type="Texture2D" uid="uid://dsb0q0eihs2dt" path="res://Assets/playerDie.png" id="6_t7mla"]
+[ext_resource type="Texture2D" uid="uid://bctyt3cek3utd" path="res://Assets/playerSlide.png" id="7_vgbfr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ji66u"]
 size = Vector2(29, 32)
@@ -82,6 +83,18 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SlideSprite:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
 "values": [0]
 }
 
@@ -221,6 +234,93 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 
+[sub_resource type="Animation" id="Animation_u850r"]
+resource_name = "slide"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlideSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_wwtsr"]
+resource_name = "slideend"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlideSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"executeSlideAfter"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_veuyi"]
+resource_name = "slideloop"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlideSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1, 2]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nevj4"]
 _data = {
 "RESET": SubResource("Animation_bvvrf"),
@@ -228,7 +328,10 @@ _data = {
 "die": SubResource("Animation_ciukc"),
 "hurt": SubResource("Animation_jc3mc"),
 "idle": SubResource("Animation_t7a8r"),
-"run": SubResource("Animation_n4jct")
+"run": SubResource("Animation_n4jct"),
+"slide": SubResource("Animation_u850r"),
+"slideend": SubResource("Animation_wwtsr"),
+"slideloop": SubResource("Animation_veuyi")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7vs11"]
@@ -268,10 +371,17 @@ position = Vector2(5, -20)
 texture = ExtResource("5_wsgif")
 
 [node name="DieSprite" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(6, -19)
 texture = ExtResource("6_t7mla")
 hframes = 10
+
+[node name="SlideSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-4, -20)
+texture = ExtResource("7_vgbfr")
+hframes = 4
 
 [node name="Area2D" type="Area2D" parent="."]
 rotation = -6.28319
@@ -291,4 +401,10 @@ libraries = {
 position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_7vs11")
 
+[node name="SlideTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="SlideTimer" to="." method="_on_slide_timer_timeout"]

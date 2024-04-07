@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://ybitoy85gtrk" path="res://player.tscn" id="1_b4fx3"]
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_q3oj8"]
 [ext_resource type="PackedScene" uid="uid://bw3huntaakxk7" path="res://mushroom.tscn" id="2_73aso"]
-[ext_resource type="AudioStream" uid="uid://hxhke4322pw2" path="res://Music/DarkCavern_PhoneHome.wav" id="3_shtkv"]
 [ext_resource type="Texture2D" uid="uid://bt2updhgs36r7" path="res://TileMaps/mainlevbuild.png" id="4_fh5t3"]
+[ext_resource type="AudioStream" uid="uid://bxhc3df66purc" path="res://Music/Tales of Olden Times.wav" id="4_idtru"]
 [ext_resource type="Texture2D" uid="uid://bgc7bxomg7kid" path="res://TileMaps/decorative.png" id="5_15dbg"]
 [ext_resource type="Texture2D" uid="uid://c1vxk42lvjqur" path="res://TileMaps/candleA_01.png" id="5_pxyia"]
 [ext_resource type="Texture2D" uid="uid://cb8h8ii03cc22" path="res://TileMaps/candleA_04.png" id="6_f2vx2"]
@@ -127,7 +127,7 @@ limit_smoothed = true
 editor_draw_limits = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_shtkv")
+stream = ExtResource("4_idtru")
 autoplay = true
 
 [node name="candle1" type="AnimatedSprite2D" parent="."]

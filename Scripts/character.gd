@@ -7,20 +7,27 @@ class_name Character extends CharacterBody2D
 @onready var hurt_sprite   = get_node("HurtSprite")
 @onready var die_sprite    = get_node("DieSprite")
 
+# body collision shape of character
 @onready var damage_coll  = get_node("CollisionShape2D")
+
+# attack collision area of character
 @onready var attack_area  = get_node("Area2D")
+# attack collision shape of character
 @onready var attack_coll  = attack_area.get_node("CollisionShape2D")
 
 var health
 var damage
+var right_flipped
 var continue_process = true
 
+# if body collision shape enters attack collison area,
+# body gets damaged, damage value is from attack area owner 
 func _on_area_2d_body_entered(body):
 	body.takeDamage(damage)
 
 func reduceHealth(damage):
 	health = health - damage
-	
+
 func getHurt():
 	continue_process = false
 	playHurt()	
@@ -29,6 +36,7 @@ func takeDamage(damage):
 	reduceHealth(damage)
 	getHurt()
 	
+# plays idle animation after hurt animation is done
 func getHurtAfter():
 	continue_process = true
 	playIdle()
@@ -121,6 +129,7 @@ func flipRight():
 	hurt_sprite.flip_h = false
 	die_sprite.flip_h = false
 	attack_area.scale.x = 1
+	right_flipped = true
 	
 func flipLeft():
 	run_sprite.flip_h = true
@@ -129,3 +138,4 @@ func flipLeft():
 	hurt_sprite.flip_h = true
 	die_sprite.flip_h = true
 	attack_area.scale.x = -1
+	right_flipped = false

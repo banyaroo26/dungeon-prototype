@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bxhc3df66purc"
+path="res://.godot/imported/Tales of Olden Times.wav-ccc03d6ca1f7ce3b0bedd22dc6e1581b.sample"
+
+[deps]
+
+source_file="res://Music/Tales of Olden Times.wav"
+dest_files=["res://.godot/imported/Tales of Olden Times.wav-ccc03d6ca1f7ce3b0bedd22dc6e1581b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
