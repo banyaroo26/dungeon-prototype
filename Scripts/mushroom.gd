@@ -6,6 +6,10 @@ func _ready():
 	damage = 60
 	range  = 45
 	SPEED  = 20
+	dialogue = ["growls","spore noises"]
+	# adds timers as child nodes
+	self.add_child(dialogue_timer)
+	self.add_child(dialogue_wait_timer)
 
 func _process(delta):
 	super._process(delta)

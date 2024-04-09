@@ -18,6 +18,10 @@ func _ready():
 	damage = 60
 	range  = 100
 	SPEED  = 25
+	dialogue = ["growls","sheeeee","hissing"]
+	# adds timers as child nodes
+	self.add_child(dialogue_timer)
+	self.add_child(dialogue_wait_timer)
 
 func _process(delta):
 	super._process(delta)

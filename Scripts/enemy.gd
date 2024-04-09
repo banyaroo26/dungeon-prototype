@@ -4,6 +4,16 @@ var player
 var player_position
 var target_position
 var range
+
+@onready var dialogue_label = get_node("Dialogue")
+@onready var dialogue_timer = Timer.new()
+@onready var dialogue_wait_timer = Timer.new()
+@onready var rnd = RandomNumberGenerator.new()
+
+var dialogue = []
+var dialogue_select
+var dialogue_show
+
 @onready var cooldown_timer = get_node("CooldownTimer")
 var on_cooldown = false
 var detected
@@ -24,9 +34,9 @@ func _on_cooldown_timer_timeout():
 
 func getPlayerPosition():
 	player_position = player.global_position
-	if(player_position.x < global_position.x):
+	if(player_position.x < global_position.x && detected):
 		flipLeft()
-	else:
+	elif(player_position.x > global_position.x && detected):
 		flipRight()
 		
 func getClose():
@@ -41,6 +51,21 @@ func getClose():
 func _ready():
 	super._ready() 
 	player	= get_parent().get_node("player")
+	# dialogue label 
+	dialogue_label.visible = false
+	dialogue_label.modulate = Color(0.811, 0, 0.059)  
+	
+	# whether to show dialogue or not
+	dialogue_show = 0
+
+	# setup dialogue timer
+	dialogue_timer.autostart = false
+	dialogue_timer.wait_time = 2.0
+	dialogue_timer.timeout.connect(_on_dialogue_timer_timeout)
+	dialogue_timer.ready.connect(_on_dialogue_timer_ready)
+	dialogue_wait_timer.autostart = false
+	dialogue_wait_timer.wait_time = 5.0
+	dialogue_wait_timer.timeout.connect(_on_dialogue_wait_timer_timeout)
 
 func _process(delta):
 	super._process(delta)
@@ -52,3 +77,29 @@ func _process(delta):
 			getClose()
 		else:
 			playIdle()
+	
+# called once when the timer is ready
+func _on_dialogue_timer_ready():
+	print("ready" + str(self))	
+	if(!detected && len(dialogue)>0):
+		callDialogueTimer()
+	
+func callDialogueTimer():
+	dialogue_show = rnd.randi_range(0,1)
+	if(dialogue_show == 1):
+		dialogue_select = rnd.randi_range(0, len(dialogue) - 1)
+		dialogue_label.text = "* " + dialogue[dialogue_select] + " *";
+		dialogue_label.visible = true
+	dialogue_timer.start()
+	print("called" + str(self))
+
+func _on_dialogue_timer_timeout():
+	dialogue_label.visible = false
+	dialogue_timer.stop()
+	dialogue_wait_timer.start()
+	print("end" + str(self))
+
+func _on_dialogue_wait_timer_timeout():
+	if(!detected):
+		callDialogueTimer()
+		print("recalled")

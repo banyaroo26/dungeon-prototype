@@ -26,6 +26,7 @@ func _ready():
 func _process(delta):
 	super._process(delta)
 	
+	# this executes after sliding = true in executeSlide()
 	if sliding:
 		if(right_flipped):
 			velocity = Vector2(1,0).normalized() * SLIDE_SPEED

@@ -342,7 +342,6 @@ height = 22.0
 script = ExtResource("1_jmmed")
 
 [node name="IdleSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 position = Vector2(4, -20)
 texture = ExtResource("2_pa5pe")
@@ -350,14 +349,12 @@ hframes = 10
 region_rect = Rect2(304, -1, 87, 47)
 
 [node name="RunSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 position = Vector2(3, -21)
 texture = ExtResource("3_knmmk")
 hframes = 10
 
 [node name="AttackSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 position = Vector2(-3, -22)
 texture = ExtResource("4_ma74k")
@@ -365,13 +362,11 @@ hframes = 4
 region_rect = Rect2(-64, 10, 1424, 40)
 
 [node name="HurtSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 position = Vector2(5, -20)
 texture = ExtResource("5_wsgif")
 
 [node name="DieSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 position = Vector2(6, -19)
 texture = ExtResource("6_t7mla")

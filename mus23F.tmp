@@ -1,12 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://vq2uw3j2slcq"]
+[gd_scene load_steps=18 format=3 uid="uid://bw3huntaakxk7"]
 
-[ext_resource type="Script" path="res://Scripts/shooshroom.gd" id="1_7uj65"]
-[ext_resource type="Texture2D" uid="uid://0y6e0rgftmkv" path="res://Assets/mushroomIdle.png" id="2_yd33a"]
-[ext_resource type="Texture2D" uid="uid://b3jtaw8q014n4" path="res://Assets/mushroomRun.png" id="3_utfun"]
-[ext_resource type="Texture2D" uid="uid://bkjfjydm6fn40" path="res://Assets/shooshroomAttack.png" id="4_701dr"]
-[ext_resource type="Texture2D" uid="uid://dyvthxue05pud" path="res://Assets/mushroomHurt.png" id="5_evhje"]
-[ext_resource type="Texture2D" uid="uid://cq8880ncjvyap" path="res://Assets/mushroomDie.png" id="6_v8lau"]
-[ext_resource type="Script" path="res://Scripts/cast.gd" id="7_scm8i"]
+[ext_resource type="Script" path="res://Scripts/mushroom.gd" id="1_pg7hi"]
+[ext_resource type="Texture2D" uid="uid://0y6e0rgftmkv" path="res://Assets/mushroomIdle.png" id="1_tpwl7"]
+[ext_resource type="Texture2D" uid="uid://cumyr7ftbifhy" path="res://Assets/mushroomAttack.png" id="3_4uy0h"]
+[ext_resource type="Texture2D" uid="uid://b3jtaw8q014n4" path="res://Assets/mushroomRun.png" id="3_q7gd8"]
+[ext_resource type="Texture2D" uid="uid://dyvthxue05pud" path="res://Assets/mushroomHurt.png" id="3_xe4bw"]
+[ext_resource type="Texture2D" uid="uid://cq8880ncjvyap" path="res://Assets/mushroomDie.png" id="4_pljx4"]
+[ext_resource type="Script" path="res://Scripts/cast.gd" id="7_qn21t"]
 
 [sub_resource type="Animation" id="Animation_7dk1m"]
 length = 0.001
@@ -61,10 +61,22 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("RunSprite:frame")
+tracks/4/path = NodePath("Area2D/CollisionShape2D:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("RunSprite:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -73,7 +85,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_o8dc8"]
 resource_name = "attack"
-length = 1.05
+length = 0.75
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -82,19 +94,31 @@ tracks/0/path = NodePath("AttackSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("Area2D/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.05),
+"times": PackedFloat32Array(0, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.75),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -214,40 +238,40 @@ radius = 16.1245
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pxlik"]
 
-[node name="shooshroom" type="CharacterBody2D"]
+[node name="mushroom" type="CharacterBody2D"]
 position = Vector2(288, 116)
 collision_layer = 2
-script = ExtResource("1_7uj65")
+script = ExtResource("1_pg7hi")
 
 [node name="IdleSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
-texture = ExtResource("2_yd33a")
+texture = ExtResource("1_tpwl7")
 flip_h = true
 hframes = 4
 
 [node name="RunSprite" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
-texture = ExtResource("3_utfun")
+texture = ExtResource("3_q7gd8")
 hframes = 8
 
 [node name="AttackSprite" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 1
-texture = ExtResource("4_701dr")
-hframes = 11
+texture = ExtResource("3_4uy0h")
+hframes = 8
 
 [node name="HurtSprite" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
-texture = ExtResource("5_evhje")
+texture = ExtResource("3_xe4bw")
 flip_h = true
 hframes = 4
 
 [node name="DieSprite" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
-texture = ExtResource("6_v8lau")
+texture = ExtResource("4_pljx4")
 flip_h = true
 hframes = 4
 
@@ -261,7 +285,6 @@ position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_nmreq")
 
 [node name="CooldownTimer" type="Timer" parent="."]
-wait_time = 0.4
 one_shot = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -271,30 +294,28 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(26, 1)
 shape = SubResource("CircleShape2D_lknlb")
-disabled = true
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_pxlik")
-target_position = Vector2(-125, 23)
-script = ExtResource("7_scm8i")
+target_position = Vector2(-62, 19)
+script = ExtResource("7_qn21t")
 
 [node name="DetectionTimer" type="Timer" parent="ShapeCast2D"]
-wait_time = 20.0
+wait_time = 10.0
 one_shot = true
-
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, -12)
 
 [node name="Dialogue" type="Label" parent="."]
 texture_filter = 1
 offset_left = -14.0
 offset_top = -24.0
-offset_right = 59.0
+offset_right = 64.0
 offset_bottom = -1.0
 scale = Vector2(0.4, 0.4)
 metadata/_edit_group_ = true
 
+[node name="DialogueTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="ShapeCast2D/DetectionTimer" to="ShapeCast2D" method="_on_detection_timer_timeout"]
+[connection signal="timeout" from="DialogueTimer" to="." method="_on_dialogue_timer_timeout"]
