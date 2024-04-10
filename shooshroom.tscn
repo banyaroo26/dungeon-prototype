@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://vq2uw3j2slcq"]
+[gd_scene load_steps=17 format=3 uid="uid://vq2uw3j2slcq"]
 
 [ext_resource type="Script" path="res://Scripts/shooshroom.gd" id="1_7uj65"]
 [ext_resource type="Texture2D" uid="uid://0y6e0rgftmkv" path="res://Assets/mushroomIdle.png" id="2_yd33a"]
@@ -212,22 +212,18 @@ height = 38.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_lknlb"]
 radius = 16.1245
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pxlik"]
-
 [node name="shooshroom" type="CharacterBody2D"]
 position = Vector2(288, 116)
 collision_layer = 2
 script = ExtResource("1_7uj65")
 
 [node name="IdleSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 texture = ExtResource("2_yd33a")
 flip_h = true
 hframes = 4
 
 [node name="RunSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 texture = ExtResource("3_utfun")
 hframes = 8
@@ -238,14 +234,12 @@ texture = ExtResource("4_701dr")
 hframes = 11
 
 [node name="HurtSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 texture = ExtResource("5_evhje")
 flip_h = true
 hframes = 4
 
 [node name="DieSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 texture = ExtResource("6_v8lau")
 flip_h = true
@@ -273,16 +267,6 @@ position = Vector2(26, 1)
 shape = SubResource("CircleShape2D_lknlb")
 disabled = true
 
-[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
-visible = false
-shape = SubResource("RectangleShape2D_pxlik")
-target_position = Vector2(-125, 23)
-script = ExtResource("7_scm8i")
-
-[node name="DetectionTimer" type="Timer" parent="ShapeCast2D"]
-wait_time = 20.0
-one_shot = true
-
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -12)
 
@@ -295,6 +279,14 @@ offset_bottom = -1.0
 scale = Vector2(0.4, 0.4)
 metadata/_edit_group_ = true
 
+[node name="DetectionTimer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+rotation = -1.58825
+target_position = Vector2(0.0624924, 111.018)
+script = ExtResource("7_scm8i")
+
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="timeout" from="ShapeCast2D/DetectionTimer" to="ShapeCast2D" method="_on_detection_timer_timeout"]

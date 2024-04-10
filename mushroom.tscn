@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bw3huntaakxk7"]
+[gd_scene load_steps=17 format=3 uid="uid://bw3huntaakxk7"]
 
 [ext_resource type="Script" path="res://Scripts/mushroom.gd" id="1_pg7hi"]
 [ext_resource type="Texture2D" uid="uid://0y6e0rgftmkv" path="res://Assets/mushroomIdle.png" id="1_tpwl7"]
@@ -236,8 +236,6 @@ height = 38.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_lknlb"]
 radius = 16.1245
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pxlik"]
-
 [node name="mushroom" type="CharacterBody2D"]
 position = Vector2(288, 116)
 collision_layer = 2
@@ -295,15 +293,6 @@ collision_layer = 2
 position = Vector2(26, 1)
 shape = SubResource("CircleShape2D_lknlb")
 
-[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
-shape = SubResource("RectangleShape2D_pxlik")
-target_position = Vector2(-62, 19)
-script = ExtResource("7_qn21t")
-
-[node name="DetectionTimer" type="Timer" parent="ShapeCast2D"]
-wait_time = 10.0
-one_shot = true
-
 [node name="Dialogue" type="Label" parent="."]
 texture_filter = 1
 offset_left = -14.0
@@ -313,6 +302,14 @@ offset_bottom = -1.0
 scale = Vector2(0.4, 0.4)
 metadata/_edit_group_ = true
 
+[node name="DetectionTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+rotation = -1.58825
+target_position = Vector2(0.673325, 76.0233)
+script = ExtResource("7_qn21t")
+
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="timeout" from="ShapeCast2D/DetectionTimer" to="ShapeCast2D" method="_on_detection_timer_timeout"]

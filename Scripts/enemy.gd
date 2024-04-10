@@ -1,9 +1,13 @@
 class_name Enemy extends Character
 
+@onready var ray_cast = get_node("RayCast2D")
 var player
 var player_position
 var target_position
+# enemy will execute attack when player is in range from them
 var range
+# length of raycast of enemy
+var ray_length
 
 @onready var dialogue_label = get_node("Dialogue")
 @onready var dialogue_timer = Timer.new()
@@ -54,10 +58,8 @@ func _ready():
 	# dialogue label 
 	dialogue_label.visible = false
 	dialogue_label.modulate = Color(0.811, 0, 0.059)  
-	
 	# whether to show dialogue or not
 	dialogue_show = 0
-
 	# setup dialogue timer
 	dialogue_timer.autostart = false
 	dialogue_timer.wait_time = 2.0
@@ -66,6 +68,8 @@ func _ready():
 	dialogue_wait_timer.autostart = false
 	dialogue_wait_timer.wait_time = 5.0
 	dialogue_wait_timer.timeout.connect(_on_dialogue_wait_timer_timeout)
+	# randomize whether enemy will facing left or right on spawn
+	flipLeft()
 
 func _process(delta):
 	super._process(delta)
@@ -80,7 +84,6 @@ func _process(delta):
 	
 # called once when the timer is ready
 func _on_dialogue_timer_ready():
-	print("ready" + str(self))	
 	if(!detected && len(dialogue)>0):
 		callDialogueTimer()
 	
@@ -91,15 +94,12 @@ func callDialogueTimer():
 		dialogue_label.text = "* " + dialogue[dialogue_select] + " *";
 		dialogue_label.visible = true
 	dialogue_timer.start()
-	print("called" + str(self))
 
 func _on_dialogue_timer_timeout():
 	dialogue_label.visible = false
 	dialogue_timer.stop()
 	dialogue_wait_timer.start()
-	print("end" + str(self))
 
 func _on_dialogue_wait_timer_timeout():
 	if(!detected):
 		callDialogueTimer()
-		print("recalled")

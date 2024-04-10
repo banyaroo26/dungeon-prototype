@@ -5,6 +5,7 @@ func _ready():
 	health = 100
 	damage = 60
 	range  = 45
+	ray_length = 60
 	SPEED  = 20
 	dialogue = ["growls","spore noises"]
 	# adds timers as child nodes

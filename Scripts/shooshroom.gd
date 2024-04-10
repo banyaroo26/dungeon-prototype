@@ -17,6 +17,7 @@ func _ready():
 	health = 100
 	damage = 60
 	range  = 100
+	ray_length = 80
 	SPEED  = 25
 	dialogue = ["growls","sheeeee","hissing"]
 	# adds timers as child nodes
