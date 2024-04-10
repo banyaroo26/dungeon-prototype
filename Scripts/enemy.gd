@@ -1,6 +1,5 @@
 class_name Enemy extends Character
 
-@onready var ray_cast = get_node("RayCast2D")
 var player
 var player_position
 var target_position
@@ -69,7 +68,10 @@ func _ready():
 	dialogue_wait_timer.wait_time = 5.0
 	dialogue_wait_timer.timeout.connect(_on_dialogue_wait_timer_timeout)
 	# randomize whether enemy will facing left or right on spawn
-	flipLeft()
+	if(rnd.randi_range(0,1) == 0):
+		flipLeft()
+	else:
+		flipRight()
 
 func _process(delta):
 	super._process(delta)

@@ -1,7 +1,6 @@
 # Dungeon Prototype
 
-I tried making a dungeon game (I know that my game is trash) in Godot Engine using free assets from 
-itch.io.
+I tried making a dungeon game using free assets from itch.io (I know that my game is trash) while learning Godot.
 
 ## Importing
 
