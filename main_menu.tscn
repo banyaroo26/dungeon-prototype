@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://okxywxnf8hs7"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_hcjhx"]
+[ext_resource type="Script" path="res://MarginContainer.gd" id="2_rmnqi"]
+[ext_resource type="Texture2D" uid="uid://1uknoy28neiq" path="res://Assets/mainmenu.jpg" id="3_0a0te"]
+[ext_resource type="AudioStream" uid="uid://d3qa68gmblehp" path="res://Music/The Flameborn Rises.mp3" id="4_m4qag"]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1497.0
+offset_top = 1114.0
+offset_right = 1497.0
+offset_bottom = 1114.0
+script = ExtResource("1_hcjhx")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+z_index = 2
+layout_mode = 0
+offset_left = -1071.0
+offset_top = -846.0
+offset_right = -844.0
+offset_bottom = -770.0
+scale = Vector2(2, 2)
+script = ExtResource("2_rmnqi")
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+z_index = 3
+layout_mode = 2
+
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+z_index = 3
+layout_mode = 2
+text = "Play"
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+z_index = 3
+layout_mode = 2
+text = "Quit"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -1496.0
+offset_top = -1114.0
+offset_right = -216.0
+offset_bottom = -394.0
+mouse_filter = 2
+texture = ExtResource("3_0a0te")
+metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_m4qag")
+autoplay = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

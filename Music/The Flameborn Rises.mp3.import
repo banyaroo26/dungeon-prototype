@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d3qa68gmblehp"
+path="res://.godot/imported/The Flameborn Rises.mp3-cfacc52990e8eabe1265ccb1c3b630f5.mp3str"
+
+[deps]
+
+source_file="res://Music/The Flameborn Rises.mp3"
+dest_files=["res://.godot/imported/The Flameborn Rises.mp3-cfacc52990e8eabe1265ccb1c3b630f5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
