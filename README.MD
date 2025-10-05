@@ -12,9 +12,9 @@ Open using Godot Editor.
 
 Assets are from :
 
-MainMenu - `https://app.leonardo.ai`
-Tilesets - `https://szadiart.itch.io/rogue-fantasy-catacombs`
-Sprites  - `https://aamatniekss.itch.io/`
-Sprites  - `https://luizmelo.itch.io/`
-Music    - `https://not-jam.itch.io/not-jam-music-pack`
-Music    - `https://app.suno.ai/`
+MainMenu - `https://app.leonardo.ai`  
+Tilesets - `https://szadiart.itch.io/rogue-fantasy-catacombs`  
+Sprites  - `https://aamatniekss.itch.io/`  
+Sprites  - `https://luizmelo.itch.io/`  
+Music    - `https://not-jam.itch.io/not-jam-music-pack`  
+Music    - `https://app.suno.ai/`  
